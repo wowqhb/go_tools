@@ -13,6 +13,26 @@ import (
 )
 
 func FormatStorageSize(size float64) string {
+	if size >= 1024*1024*1024*1024*1024*1024*1024*1024*1024 {
+		i := Round(size / 1024 / 1024 / 1024 / 1024 / 1024 / 1024 / 1024 / 1024 / 1024)
+		return fmt.Sprintf("%.1fBB", i)
+	}
+	if size >= 1024*1024*1024*1024*1024*1024*1024*1024 {
+		i := Round(size / 1024 / 1024 / 1024 / 1024 / 1024 / 1024 / 1024 / 1024)
+		return fmt.Sprintf("%.1fYB", i)
+	}
+	if size >= 1024*1024*1024*1024*1024*1024*1024 {
+		i := Round(size / 1024 / 1024 / 1024 / 1024 / 1024 / 1024 / 1024)
+		return fmt.Sprintf("%.1fZB", i)
+	}
+	if size >= 1024*1024*1024*1024*1024*1024 {
+		i := Round(size / 1024 / 1024 / 1024 / 1024 / 1024 / 1024)
+		return fmt.Sprintf("%.1fEB", i)
+	}
+	if size >= 1024*1024*1024*1024*1024 {
+		i := Round(size / 1024 / 1024 / 1024 / 1024 / 1024)
+		return fmt.Sprintf("%.1fPB", i)
+	}
 	if size >= 1024*1024*1024*1024 {
 		i := Round(size / 1024 / 1024 / 1024 / 1024)
 		return fmt.Sprintf("%.1fTB", i)
@@ -29,7 +49,7 @@ func FormatStorageSize(size float64) string {
 		i := Round(size / 1024)
 		return fmt.Sprintf("%.1fKB", i)
 	}
-	return fmt.Sprintf("%fB", size)
+	return fmt.Sprintf("%dB", int64(size))
 }
 
 // Round 小数点后n位四舍五入
