@@ -12,41 +12,54 @@ import (
 	"github.com/leekchan/accounting"
 )
 
+const (
+	ONE_KB = float64(1024)          // 1024B
+	ONE_MB = ONE_KB * float64(1024) // 1024KB
+	ONE_GB = ONE_MB * float64(1024) // 1024MB
+	ONE_TB = ONE_GB * float64(1024) // 1024GB
+	ONE_PB = ONE_TB * float64(1024) // 1024TB
+	ONE_EB = ONE_PB * float64(1024) // 1024PB
+	ONE_ZB = ONE_EB * float64(1024) // 1024EB
+	ONE_YB = ONE_ZB * float64(1024) // 1024ZB
+	ONE_BB = ONE_YB * float64(1024) // 1024YB
+)
+
+// support: B KB MB GB TB PB EB ZB YB BB
 func FormatStorageSize(size float64) string {
-	if size >= 1024*1024*1024*1024*1024*1024*1024*1024*1024 {
-		i := Round(size / 1024 / 1024 / 1024 / 1024 / 1024 / 1024 / 1024 / 1024 / 1024)
+	if size >= ONE_BB {
+		i := Round(size / ONE_BB)
 		return fmt.Sprintf("%.1fBB", i)
 	}
-	if size >= 1024*1024*1024*1024*1024*1024*1024*1024 {
-		i := Round(size / 1024 / 1024 / 1024 / 1024 / 1024 / 1024 / 1024 / 1024)
+	if size >= ONE_YB {
+		i := Round(size / ONE_YB)
 		return fmt.Sprintf("%.1fYB", i)
 	}
-	if size >= 1024*1024*1024*1024*1024*1024*1024 {
-		i := Round(size / 1024 / 1024 / 1024 / 1024 / 1024 / 1024 / 1024)
+	if size >= ONE_ZB {
+		i := Round(size / ONE_ZB)
 		return fmt.Sprintf("%.1fZB", i)
 	}
-	if size >= 1024*1024*1024*1024*1024*1024 {
-		i := Round(size / 1024 / 1024 / 1024 / 1024 / 1024 / 1024)
+	if size >= ONE_EB {
+		i := Round(size / ONE_EB)
 		return fmt.Sprintf("%.1fEB", i)
 	}
-	if size >= 1024*1024*1024*1024*1024 {
-		i := Round(size / 1024 / 1024 / 1024 / 1024 / 1024)
+	if size >= ONE_PB {
+		i := Round(size / ONE_PB)
 		return fmt.Sprintf("%.1fPB", i)
 	}
-	if size >= 1024*1024*1024*1024 {
-		i := Round(size / 1024 / 1024 / 1024 / 1024)
+	if size >= ONE_TB {
+		i := Round(size / ONE_TB)
 		return fmt.Sprintf("%.1fTB", i)
 	}
-	if size >= 1024*1024*1024 {
-		i := Round(size / 1024 / 1024 / 1024)
+	if size >= ONE_GB {
+		i := Round(size / ONE_GB)
 		return fmt.Sprintf("%.1fGB", i)
 	}
-	if size >= 1024*1024 {
-		i := Round(size / 1024 / 1024)
+	if size >= ONE_MB {
+		i := Round(size / ONE_MB)
 		return fmt.Sprintf("%.1fMB", i)
 	}
-	if size >= 1024 {
-		i := Round(size / 1024)
+	if size >= ONE_KB {
+		i := Round(size / ONE_KB)
 		return fmt.Sprintf("%.1fKB", i)
 	}
 	return fmt.Sprintf("%dB", int64(size))
