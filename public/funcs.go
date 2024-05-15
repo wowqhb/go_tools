@@ -108,11 +108,21 @@ func ToJsonStringWithoutError(src interface{}, escape ...bool) string {
 }
 
 // ConvertByJson is 通过json转换对象，参数target为指针
-func ConvertByJson(src, target interface{}, escape ...bool) error {
-	marshal, err := ToJsonBytes(src, escape...)
-	if err != nil {
-		return err
+func ConvertByJson(src, target interface{}, escape ...bool) (err error) {
+	var marshal []byte
+	_type := fmt.Sprintf("%T", src)
+	switch _type {
+	case "[]byte", "[]uint8":
+		marshal = src.([]byte)
+	case "string":
+		marshal = []byte(src.(string))
+	default:
+		marshal, err = ToJsonBytes(src, escape...)
+		if err != nil {
+			return err
+		}
 	}
+
 	err = json.Unmarshal(marshal, target)
 	if err != nil {
 		return err
