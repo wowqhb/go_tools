@@ -1,6 +1,6 @@
 module github.com/wowqhb/go_tools
 
-go 1.20
+go 1.8
 
 require (
 	github.com/gogf/gf v1.16.9
