@@ -211,6 +211,14 @@ func TrinocularOperationT[T any](a bool, b, c T) T {
 	return c
 }
 
+// 模拟三目运算
+func TrinocularOperationTWithFunc[T any](a bool, b, c func() T) T {
+	if a {
+		return b()
+	}
+	return c()
+}
+
 func ParseJson[T any](jsonStr string, pointer T) (T, error) {
 	err := json.Unmarshal([]byte(jsonStr), pointer)
 	return pointer, err
